@@ -5,11 +5,11 @@ that converts HTML input files into formatted HTML, PDF or PostScript
 output.
 
 Home:: http://rubyforge.org/projects/pdf-htmldoc/
-HTMLDOC Home: http://www.htmldoc.org/
+HTMLDOC Home:: http://www.htmldoc.org/
 Copyright:: 2007, Ronaldo M. Ferraz
 
 This is a preview release, which means it had only limited testing. As
-far as it's know, it will work on all platforms in which HTMLDOC is
+far as I know, it will work on all platforms in which HTMLDOC is
 available. Comments, suggestions, and further tests are welcome.
 
 == LICENSE NOTES
@@ -84,13 +84,13 @@ See the notes below for usage considerations.
   further dependencies.
 
 * Under Windows, it's better to point the program path for the HTMLDOC
-  executable to the GUI vesion. It will avoid a DOS command window from
-  popping-up in your application,
+  executable to the GUI version. It will prevent a DOS command window
+  from popping-up in your application,
 
-* Keep in mind that HTMLDOC is not fast over large documents. If you
-  need to generate very large documents, you be better off spawning an
-  additional thread if your are in a traditional application or
-  farming off the generation for a background deamon that will
-  communicate with your application using some RPC
+* Keep in mind that HTMLDOC is not very fast over large documents. If
+  you need to generate very large documents, you'll be better off
+  spawning an additional thread if you are developing a traditional
+  application or farming off the generation for a background deamon
+  that will communicate with your application using some RPC
   mechanism. BackgrounDRb[http://backgroundrb.rubyforge.org] is a good
   choice for that.

@@ -19,8 +19,8 @@ GEM_NAME = "htmldoc"
 RUBYFORGE_PROJECT = "htmldoc"
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 
-NAME = "htmldoc"
-REV = nil # UNCOMMENT IF REQUIRED: File.read(".svn/entries")[/committed-rev="(d+)"/, 1] rescue nil
+NAME = "HTMLDOC"
+REV = File.read(".svn/entries")[/committed-rev="(d+)"/, 1] rescue nil
 VERS = ENV['VERSION'] || (PDF::HTMLDOC::VERSION::STRING + (REV ? ".#{REV}" : ""))
                           CLEAN.include ['**/.*.sw?', '*.gem', '.config']
 RDOC_OPTS = ['--quiet', '--title', "htmldoc documentation",
