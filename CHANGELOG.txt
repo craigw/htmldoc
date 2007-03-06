@@ -1,3 +1,8 @@
+2007-03-06 ronaldo <ronaldo@reflectivesurface.com>
+
+	* Fixed spelling and grammatical error in README.txt
+	* Fixed a couple of naming issues in Rakefile
+	
 2007-03-05 ronaldo <ronaldo@reflectivesurface.com>
 
 	* Initial release

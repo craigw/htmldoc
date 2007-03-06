@@ -59,7 +59,7 @@ A similar approach can be used for inline generation:
     p << "/var/doc/file2.html"
 
     p << @report.to_html
-    p << "Some other text that will be incorporated to the report"
+    p << "Some other text that will be incorporated in the report"
 
     p.footer ".1."
 
