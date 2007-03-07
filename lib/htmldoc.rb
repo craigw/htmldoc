@@ -44,8 +44,20 @@ module PDF
     # <code>"C:\Program Files\HTMLDOC\HTMLDOC.exe"</code>.
     @@program_path = "htmldoc"
 
-    # The last result from the generation of the output file(s).
+    # The last result from the generation of the output file(s). It's
+    # a hash comprising three pairs:
+    # <tt>bytes</tt>:: The number of bytes generated in the last request or <tt>nil</tt>
+    # <tt>pages</tt>:: The number of pages generated in the last request or <tt>nil</tt>
+    # <tt>output</tt>:: The raw output of the command
     attr_reader :result
+
+    # The last error messages generate by the command. It's a hash
+    # where they key represents the error number, and the value
+    # represents the error message. If the error number is zero,
+    # HTMLDOC was called with invalid parameters. Errors can happen
+    # even if generation succeeds, for example, if an image can't be
+    # found in the course of the generation.
+    attr_reader :errors
 
     # Creates a blank HTMLDOC wrapper, using <tt>format</tt> to
     # indicate whether the output will be HTML, PDF or PS. The format
@@ -56,13 +68,13 @@ module PDF
       @options = {}
       @pages = []
       @tempfiles = []
-      @result = ""
+      reset
     end
 
     # Creates a blank HTMLDOC wrapper and passes it to a block. When
     # the block finishes running, the <tt>generate</tt> method is
-    # automatically called. The result of generate is then passed back
-    # to the application.
+    # automatically called. The result of <tt>generate</tt> is then
+    # passed back to the application.
     def self.create(format = PDF, &block)
       pdf = HTMLDoc.new(format)
       if block_given?
@@ -131,16 +143,16 @@ module PDF
     # or file is provided, the method will return <tt>true</tt> or
     # <tt>false</tt> to indicate completion. If no output directory or
     # file is provided, it will return a string representing the
-    # entire output.
+    # entire output. Generate will raise a PDF::HTMLDocException if
+    # the program path can't be found.
     def generate
       tempfile = nil
       unless @options[:outdir] || @options[:outfile]
         tempfile = Tempfile.new("htmldoc.temp")
         @options[:outfile] = tempfile.path
       end
-      command = @@program_path + " " + get_command_options + " " + get_command_pages + " 2>&1"
-      @result = IO.popen(command) { |s| s.read }
-      if (/BYTES/ =~ @result)
+      execute
+      if @result[:bytes]
         if tempfile
           File.open(tempfile.path, "rb") { |f| f.read }
         else
@@ -150,11 +162,45 @@ module PDF
         false
       end
     ensure
-      tempfile.close if tempfile
+      if tempfile
+        tempfile.close
+        @options[:outfile] = nil
+      end
       @tempfiles.each { |t| t.close }
     end
 
     private
+
+    def execute
+      # Reset internal variables
+      reset
+      # Execute
+      command = @@program_path + " " + get_command_options + " " + get_command_pages + " 2>&1"
+      result = IO.popen(command) { |s| s.read }
+      # Check whether the program really was executed
+      if $?.exitstatus == 127
+        raise HTMLDocException.new("Invalid program path: #{@@program_path}")
+      else
+        @result[:output] = result
+        result.split("\n").each do |line|
+          case line
+            when /^BYTES: (\d+)/
+              @result[:bytes] = $1.to_i
+            when /^PAGES: (\d+)/
+              @result[:pages] = $1.to_i
+            when /^ERROR: (.*)$/
+              @errors[0] = $1.strip
+            when /^ERR(\d+): (.*)$/
+              @errors[$1.to_i] = $2.strip
+          end
+        end
+      end
+    end
+
+    def reset
+      @result = { :bytes => nil, :pages => nil, :output => nil }
+      @errors = { }
+    end
 
     def get_command_pages
       pages = @pages.collect do |page|

@@ -73,9 +73,45 @@ your system.
 
   require "htmldoc"
 
-  PDF::HTMLDoc.program_path = "\"C:\Program Files\HTMLDOC\ghtmldoc.exe\""
+  PDF::HTMLDoc.program_path = "\"C:\\Program Files\\HTMLDOC\\ghtmldoc.exe\""
 
 See the notes below for usage considerations.
+
+== COMMON OPTIONS
+
+Here are a few of the common options that can be used to control
+HTMLDOC's output (assuming that <tt>pdf</tt> is a valid instance of
+PDF::HTMLDoc):
+
+To change the orientation to portrait mode, use:
+  pdf.set_option :portrait, true 
+
+To change the orientation to landscape mode, use:
+  pdf.set_option :landscape, true 
+
+To set the margins use:
+  pdf.set_option :top, "15"
+  pdf.set_option :right, "3cm"
+  pdf.set_option :left, "0.25in"
+  pdf.set_option :bottom, "20mm"
+
+To disable the automatic table of contents, use:
+  pdf.set_option :toc, false
+
+To control the header and footer, use:
+  pdf.header "lcr"
+  pdf.footer "lcr"
+
+In the code above, "lcr" is a thee-character string representing the
+left, center, and right fields of the header or footer. A ".1."
+string, for example, indicates that the left and right fields should
+be blank, and that the center field should contain the current page
+number in decimal format. You can find more information about the
+possible options in the HTMLDOC
+documentation[http://www.htmldoc.org/htmldoc.html#footer].
+
+More information about other options can be found in the HTMLDOC
+command-line reference[http://www.htmldoc.org/htmldoc.html#CMDREF].
 
 == NOTES
 
@@ -94,3 +130,11 @@ See the notes below for usage considerations.
   that will communicate with your application using some RPC
   mechanism. BackgrounDRb[http://backgroundrb.rubyforge.org] is a good
   choice for that.
+
+* HTMLDOC doesn't support CSS files in its current stable version
+  (1.8.27). The development version (1.9) does support CSS, but in a
+  limited way. 
+
+* HTMLDOC doesn't support UTF-8. Since PDF::HTMLDOC makes no attempt
+  to convert any input passed to it, it's the caller's responsibility
+  to provide any necessary conversions.
