@@ -100,10 +100,10 @@ module PDF
     # can be anything. Invalid options will throw an exception. To
     # unset an option, use <tt>nil</tt> as the value. Options with
     # negated counterparts, like <tt>:encryption</tt>, can be set
-    # using :no or :none as the value.
+    # using false, :no or :none as the value.
     def set_option(option, value)
       if @@all_options.include?(option)
-        if value
+        if !value.nil?
           @options[option] = value
         else
           @options.delete(option)
