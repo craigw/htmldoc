@@ -4,7 +4,7 @@ PDF::HTMLDoc is a wrapper around HTMLDOC, an open-source application
 that converts HTML input files into formatted HTML, PDF or PostScript
 output.
 
-Home:: http://rubyforge.org/projects/pdf-htmldoc/
+Home:: http://rubyforge.org/projects/htmldoc/
 HTMLDOC Home:: http://www.htmldoc.org/
 Copyright:: 2007, Ronaldo M. Ferraz
 
