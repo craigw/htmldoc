@@ -1,3 +1,8 @@
+2009-05-18 Craig R Webster <http://barkingiguana.com/~craig>
+
+  * Bug fix: multi-line HTML documents that have a line starting with
+    http or https are still files.
+
 2008-09-02 paploo <jeff@paploo.net>
 
   * Fixed a bug in :set_option where it would see the value false as nil
