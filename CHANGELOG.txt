@@ -1,3 +1,8 @@
+2009-09-27 Devin Walters <http://devinwalters.com/>
+
+  * Bug fix: Escape characters in html filenames. "Foo(bar).html", for
+    instance.
+
 2009-05-18 Craig R Webster <http://barkingiguana.com/~craig>
 
   * Bug fix: multi-line HTML documents that have a line starting with
