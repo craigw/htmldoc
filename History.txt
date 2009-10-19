@@ -1,3 +1,9 @@
+0.2.2
+* Move source code to GitHub: http://github.com/craigw/htmldoc
+* Strings that have linebreaks in are probably not URLs.
+* If a string has a line starting what matches /https?:\/\/ it's not an 
+  URL, it's a string.
+
 0.2.1
 * Fixed a bug in set_option where the value false would be seen as nil instead of :no
 

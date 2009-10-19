@@ -12,17 +12,14 @@ require 'hoe'
 include FileUtils
 require File.join(File.dirname(__FILE__), 'lib', 'htmldoc', 'version')
 
-AUTHOR = "Ronaldo M. Ferraz"
-EMAIL = "ronaldo@reflectivesurface.com"
+AUTHOR = "Craig R Webster"
+EMAIL = "craig@barkingiguana.com"
 DESCRIPTION = "A wrapper around HTMLDOC, a PDF generation utility"
 GEM_NAME = "htmldoc"
 RUBYFORGE_PROJECT = "htmldoc"
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 
 NAME = "HTMLDOC"
-REV = File.read(".svn/entries")[/committed-rev="(d+)"/, 1] rescue nil
-VERS = ENV['VERSION'] || (PDF::HTMLDOC::VERSION::STRING + (REV ? ".#{REV}" : ""))
-                          CLEAN.include ['**/.*.sw?', '*.gem', '.config']
 RDOC_OPTS = ['--quiet', '--title', "htmldoc documentation",
     "--opname", "index.html",
     "--line-numbers", 
@@ -37,7 +34,7 @@ end
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-hoe = Hoe.new(GEM_NAME, VERS) do |p|
+hoe = Hoe.new(GEM_NAME, PDF::HTMLDOC::VERSION::STRING) do |p|
 
   p.author = AUTHOR 
   p.email = EMAIL
