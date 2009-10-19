@@ -83,7 +83,10 @@ class BasicTest < Test::Unit::TestCase
     # level of functionality.
     pdf = PDF::HTMLDoc.new
     tempfile = Tempfile.new("htmldoc.test")
-    pages = ["http://example.org/", tempfile.path, "Test"]
+    pages = ["http://example.org/", tempfile.path]
+    tmpstring = "1234567890"
+    tmpstring += "1234567890" while File.exists?(tmpstring)
+    pages << tmpstring
     pages.each do |page|
       pdf << page
     end

@@ -136,7 +136,7 @@ module PDF
       else
         type = :text
       end
-      @pages << { :type => type, :value => "\"#{page}\"" }
+      @pages << { :type => type, :value => page }
     end
 
     alias :<< :add_page
