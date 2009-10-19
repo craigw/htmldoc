@@ -19,6 +19,7 @@ class GenerationTest < Test::Unit::TestCase
     # level of functionality. Output to directories is not tested for
     # now.
     basic_test(PDF::HTML)
+    basic_test(PDF::HTML, "http://foo.com/\nhttp://bar.com/")
     basic_test(PDF::PS)
     basic_test(PDF::PDF)
   end
@@ -65,13 +66,12 @@ class GenerationTest < Test::Unit::TestCase
 
   private
 
-  def basic_test(format)
+  def basic_test(format, page = %Q(<h1>Page 1</h1><p>Test.</p><h1>Page 2</h1><p>Test.</p>\nhttp://foo.com/))
     # Temporary files
     path1, path2 = (1..2).collect { |i| Dir.tmpdir + "/#{i}.#{format}" }
     # Create a temporary file for the duration of the test
     Tempfile.open("htmldoc.test") do |tempfile|
       # Load the temporary file with some test datas
-      page = %Q(<h1>Page 1</h1><p>Test.</p><h1>Page 2</h1><p>Test.</p>\nhttp://foo.com/)
       tempfile.binmode
       tempfile.write(page)
       tempfile.flush

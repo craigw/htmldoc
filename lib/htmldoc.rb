@@ -127,9 +127,7 @@ module PDF
     # either <tt>http://</tt> or <tt>https://</tt>; a file, which will
     # be verified for existence; or any text.
     def add_page(page)
-      # TODO: This should check for a valid URL. If it starts with http but
-      # contains newlines then it also is most probabl ynot an URL.
-      if /\A(http|https)/ =~ page
+      if /\A(http|https)/ =~ page && page !~ /\r|\n/
         type = :url
       elsif File.exists?(page)
         type = :file
