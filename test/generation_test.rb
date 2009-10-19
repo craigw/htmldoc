@@ -71,7 +71,7 @@ class GenerationTest < Test::Unit::TestCase
     # Create a temporary file for the duration of the test
     Tempfile.open("htmldoc.test") do |tempfile|
       # Load the temporary file with some test datas
-      page = "<h1>Page 1</h1><p>Test.</p><h1>Page 2</h1><p>Test.</p>"
+      page = %Q(<h1>Page 1</h1><p>Test.</p><h1>Page 2</h1><p>Test.</p>\nhttp://foo.com/)
       tempfile.binmode
       tempfile.write(page)
       tempfile.flush
