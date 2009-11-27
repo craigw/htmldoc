@@ -1,3 +1,6 @@
+0.2.3
+* The htmldoc command sometimes uses \r in the output. [Jon Wood]
+
 0.2.2
 * Move source code to GitHub: http://github.com/craigw/htmldoc
 * Strings that have linebreaks in are probably not URLs.
