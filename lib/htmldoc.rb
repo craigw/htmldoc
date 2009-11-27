@@ -182,7 +182,7 @@ module PDF
         raise HTMLDocException.new("Invalid program path: #{@@program_path}")
       else
         @result[:output] = result
-        result.split("\r|\n").each do |line|
+        result.split(/\r|\n/).each do |line|
           case line
             when /^BYTES: (\d+)/
               @result[:bytes] = $1.to_i
