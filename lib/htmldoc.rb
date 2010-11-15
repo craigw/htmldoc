@@ -32,7 +32,7 @@ module PDF
                        :pagelayout, :pagemode, :path, :permissions, :portrait,
                        :referer, :right, :size, :textcolor, :textfont, :titlefile,
                        :titleimage, :tocfooter, :tocheader, :toclevels, :toctitle,
-                       :user_password, :webpage]
+                       :top, :user_password, :webpage]
 
     @@extra_options = [:compression, :duplex, :embedfonts, :encryption, :jpeg,
                        :links, :localfiles, :numbered, :pscommands, :strict, :title,
