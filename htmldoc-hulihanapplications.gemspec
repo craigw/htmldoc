@@ -17,12 +17,15 @@ Gem::Specification.new do |s|
     "README.txt"
   ]
   s.files = [
+    "Gemfile",
+    "Gemfile.lock",
     "History.txt",
     "LICENSE.txt",
     "Manifest.txt",
     "README.txt",
     "Rakefile",
     "VERSION",
+    "htmldoc-hulihanapplications.gemspec",
     "init.rb",
     "lib/htmldoc.rb",
     "lib/htmldoc/version.rb",
