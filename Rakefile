@@ -1,51 +1,53 @@
+# encoding: utf-8
+
 require 'rubygems'
+require 'bundler'
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
+end
 require 'rake'
-require 'rake/clean'
+
+require 'jeweler'
+Jeweler::Tasks.new do |gem|
+  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
+  gem.name = "htmldoc-hulihanapplications"
+  gem.homepage = "http://github.com/hulihanapplications/htmldoc"
+  gem.license = "MIT"
+  gem.summary = %Q{Wrapper around HTMLDOC (canonical repository)}
+  gem.description = %Q{A fork of the craigw's htmldoc: https://github.com/craigw/htmldoc.}
+  gem.email = "dave@hulihanapplications.com"
+  gem.authors = ["Hulihan Applications", "Dave Hulihan"]
+  # dependencies defined in Gemfile
+end
+Jeweler::RubygemsDotOrgTasks.new
+
 require 'rake/testtask'
-require 'rake/packagetask'
-require 'rake/gempackagetask'
-require 'rake/rdoctask'
-require 'rake/contrib/rubyforgepublisher'
-require 'fileutils'
-require 'hoe'
-
-include FileUtils
-require File.join(File.dirname(__FILE__), 'lib', 'htmldoc', 'version')
-
-AUTHOR = "Craig R Webster"
-EMAIL = "craig@barkingiguana.com"
-DESCRIPTION = "A wrapper around HTMLDOC, a PDF generation utility"
-GEM_NAME = "htmldoc"
-RUBYFORGE_PROJECT = "htmldoc"
-HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
-
-NAME = "HTMLDOC"
-RDOC_OPTS = ['--quiet', '--title', "htmldoc documentation",
-    "--opname", "index.html",
-    "--line-numbers", 
-    "--main", "README",
-    "--inline-source"]
-
-class Hoe
-  def extra_deps 
-    @extra_deps.reject { |x| Array(x).first == 'hoe' } 
-  end 
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
 end
 
-# Generate all the Rake tasks
-# Run 'rake -T' to see list of generated tasks (from gem root directory)
-hoe = Hoe.new(GEM_NAME, PDF::HTMLDOC::VERSION::STRING) do |p|
+require 'rcov/rcovtask'
+Rcov::RcovTask.new do |test|
+  test.libs << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
+  test.rcov_opts << '--exclude "gems/*"'
+end
 
-  p.author = AUTHOR 
-  p.email = EMAIL
-  p.summary = DESCRIPTION
-  p.url = HOMEPATH
-  p.rubyforge_name = RUBYFORGE_PROJECT if RUBYFORGE_PROJECT
-  p.test_globs = ["test/**/*_test.rb"]
-  p.clean_globs = CLEAN  #An array of file patterns to delete on clean.
-  p.description = p.paragraphs_of('README.txt', 1..1).join("\n\n")
-  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
+task :default => :test
 
-  #p.extra_deps     - An array of rubygem dependencies.
-  #p.spec_extras    - A hash of extra values to set in the gemspec.
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "lablr #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end
