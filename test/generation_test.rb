@@ -21,7 +21,7 @@ class GenerationTest < Test::Unit::TestCase
     basic_test(PDF::HTML)
     basic_test(PDF::HTML, "http://foo.com/\nhttp://bar.com/")
     basic_test(PDF::PS)
-    basic_test(PDF::PDF)
+    basic_test(PDF::PDF1)
   end
 
   def test_generation_results

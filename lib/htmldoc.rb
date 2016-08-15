@@ -4,7 +4,7 @@ module PDF
 
   HTML = "html"
   HTMLSEP = "htmlsep"
-  PDF = "pdf"
+  PDF1 = "pdf"
   PDF11 = "pdf11"
   PDF12 = "pdf12"
   PDF13 = "pdf13"
@@ -63,7 +63,7 @@ module PDF
     # indicate whether the output will be HTML, PDF or PS. The format
     # defaults to PDF, and can change using one of the module
     # contants.
-    def initialize(format = PDF)
+    def initialize(format = PDF1)
       @format = format
       @options = {}
       @pages = []
@@ -75,7 +75,7 @@ module PDF
     # the block finishes running, the <tt>generate</tt> method is
     # automatically called. The result of <tt>generate</tt> is then
     # passed back to the application.
-    def self.create(format = PDF, &block)
+    def self.create(format = PDF1, &block)
       pdf = HTMLDoc.new(format)
       if block_given?
         yield pdf
