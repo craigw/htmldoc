@@ -74,7 +74,7 @@ class BasicTest < Test::Unit::TestCase
       pdf.send(:set_option, *test[1,2])
     end
     command_options = tests.collect { |test| test.first }
-    command_options = (command_options + ["--format " + PDF::PDF]).sort.join(" ")
+    command_options = (command_options + ["--format " + PDF::PDF1]).sort.join(" ")
     assert_equal command_options, pdf.send(:get_command_options)
   end
 
